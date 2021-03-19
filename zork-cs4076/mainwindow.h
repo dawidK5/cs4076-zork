@@ -14,6 +14,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    friend Ui::MainWindow *& getUI(MainWindow &);   // return reference to the ui pointer
 
 private:
     Ui::MainWindow *ui;

@@ -13,3 +13,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+Ui::MainWindow *& getUI(MainWindow & win)
+{
+    return win.ui;
+}
