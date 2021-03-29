@@ -14,14 +14,28 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLCDNumber" name="lcdNumber">
+   <widget class="QLCDNumber" name="daysLeftLCD">
     <property name="geometry">
      <rect>
-      <x>630</x>
+      <x>660</x>
       <y>10</y>
-      <width>161</width>
+      <width>131</width>
       <height>81</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="smallDecimalPoint">
+     <bool>false</bool>
+    </property>
+    <property name="digitCount">
+     <number>3</number>
     </property>
    </widget>
    <widget class="QLabel" name="daysTillColText">
@@ -40,9 +54,9 @@
    <widget class="QTextBrowser" name="storyTextBox">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>135</x>
       <y>110</y>
-      <width>256</width>
+      <width>441</width>
       <height>192</height>
      </rect>
     </property>
@@ -61,6 +75,9 @@
     </property>
    </widget>
    <widget class="QRadioButton" name="torchOffBt">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -71,6 +88,9 @@
     </property>
     <property name="text">
      <string>Off</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="torchText">
@@ -152,13 +172,13 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>300</y>
-      <width>91</width>
-      <height>251</height>
+      <y>400</y>
+      <width>121</width>
+      <height>151</height>
      </rect>
     </property>
     <property name="viewMode">
-     <enum>QListView::IconMode</enum>
+     <enum>QListView::ListMode</enum>
     </property>
    </widget>
    <widget class="QGraphicsView" name="entityView">
@@ -175,7 +195,7 @@
     <property name="geometry">
      <rect>
       <x>680</x>
-      <y>420</y>
+      <y>380</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -188,7 +208,7 @@
     <property name="geometry">
      <rect>
       <x>680</x>
-      <y>500</y>
+      <y>480</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -197,11 +217,11 @@
      <string>South</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="southBt_2">
+   <widget class="QPushButton" name="westBt">
     <property name="geometry">
      <rect>
       <x>640</x>
-      <y>460</y>
+      <y>430</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -214,7 +234,7 @@
     <property name="geometry">
      <rect>
       <x>720</x>
-      <y>460</y>
+      <y>430</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -250,6 +270,9 @@
     </property>
    </widget>
    <widget class="QListView" name="attackListView">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>240</x>
@@ -257,6 +280,9 @@
       <width>61</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
     </property>
    </widget>
    <widget class="QListView" name="giveTradeListView">
@@ -266,6 +292,52 @@
       <y>340</y>
       <width>61</width>
       <height>61</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>You need 2 logs and a rope to make a basic raft</string>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>100</y>
+      <width>71</width>
+      <height>81</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>330</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>240</y>
+      <width>71</width>
+      <height>81</height>
      </rect>
     </property>
    </widget>

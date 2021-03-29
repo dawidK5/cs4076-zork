@@ -12,17 +12,26 @@ SOURCES += \
     Room.cpp \
     ZorkUL.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    popout.cpp
 
 HEADERS += \
     Room.h \
     ZorkUL.h \
-    mainwindow.h
+    mainwindow.h \
+    popout.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    popout.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    mapwithgrid.png
+
+RESOURCES += \
+    resFile.qrc

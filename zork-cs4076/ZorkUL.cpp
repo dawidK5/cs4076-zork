@@ -3,11 +3,16 @@
 //using namespace std;
 #include "ZorkUL.h"
 
+/*
 ZorkUL::ZorkUL(Ui::MainWindow *& myUi) : myUi(myUi) {
 	createRooms();
     printWelcome();
    // myUi->storyTextBox->setText("Hello All!");
 
+}
+*/
+ZorkUL::ZorkUL() {
+    createRooms();
 }
 
 void ZorkUL::createRooms()  {
@@ -151,14 +156,7 @@ void ZorkUL::play() {
 	cout << "end" << endl;
 }
 */
-void ZorkUL::printWelcome() {
-    QVector<QString> msgVect { "Welcome to The Dwindling Light",
-                                "You are an explorer. You have crash-landed on an unknown planet, it wasn't on any maps but you are here nonetheless.",
-                              "Your Hyperdrive seems to be broken, maybe you can find some resemblence of life and some parts to fix your Hyperdrive.",
-                              "Have a look around."};
-    for (auto& itr : msgVect)
-    myUi->storyTextBox->append(itr);
-}
+
 
 /**
  * Given a command, process (that is: execute) the command.
@@ -172,7 +170,7 @@ bool ZorkUL::processCommand(Command command) {
 		return false;
 	}
 
-	string commandWord = command.getCommandWord();
+    QString commandWord = command.getCommandWord();
 	if (commandWord.compare("info") == 0)
 		printHelp();
 
@@ -249,7 +247,7 @@ void ZorkUL::goRoom(Command command) {
 		return;
 	}
 
-	string direction = command.getSecondWord();
+    QString direction = command.getSecondWord();
 
 	// Try to leave current room.
 	Room* nextRoom = currentRoom->nextRoom(direction);
@@ -261,8 +259,14 @@ void ZorkUL::goRoom(Command command) {
 		cout << currentRoom->longDescription() << endl;
 	}
 }
+*/
 
-string ZorkUL::go(string direction) {
+/**
+ * @brief ZorkUL::go
+ * @param direction the QString for direction
+ * @return
+ */
+QString ZorkUL::go(const QString& direction) {
 	//Make the direction lowercase
 	//transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
 	//Move to the next room
@@ -275,4 +279,4 @@ string ZorkUL::go(string direction) {
 		return currentRoom->longDescription();
 	}
 }
-*/
+
