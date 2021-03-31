@@ -37,6 +37,9 @@
     <property name="digitCount">
      <number>3</number>
     </property>
+    <property name="intValue" stdset="0">
+     <number>30</number>
+    </property>
    </widget>
    <widget class="QLabel" name="daysTillColText">
     <property name="geometry">
@@ -305,7 +308,8 @@
      </rect>
     </property>
     <property name="text">
-     <string>You need 2 logs and a rope to make a basic raft</string>
+     <string>2 logs and a rope 
+needed to make a raft</string>
     </property>
    </widget>
    <widget class="QGraphicsView" name="graphicsView">
@@ -341,6 +345,31 @@
      </rect>
     </property>
    </widget>
+   <zorder>daysLeftLCD</zorder>
+   <zorder>daysTillColText</zorder>
+   <zorder>storyTextBox</zorder>
+   <zorder>torchOnBt</zorder>
+   <zorder>torchOffBt</zorder>
+   <zorder>torchText</zorder>
+   <zorder>line</zorder>
+   <zorder>viewMapBt</zorder>
+   <zorder>healthBar</zorder>
+   <zorder>hpText</zorder>
+   <zorder>invListView</zorder>
+   <zorder>entityView</zorder>
+   <zorder>northBt</zorder>
+   <zorder>southBt</zorder>
+   <zorder>westBt</zorder>
+   <zorder>eastBt</zorder>
+   <zorder>attackWithText</zorder>
+   <zorder>giveTradeText</zorder>
+   <zorder>attackListView</zorder>
+   <zorder>giveTradeListView</zorder>
+   <zorder>label</zorder>
+   <zorder>graphicsView</zorder>
+   <zorder>label_2</zorder>
+   <zorder>graphicsView_2</zorder>
+   <zorder>minimap</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

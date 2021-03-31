@@ -4,7 +4,7 @@
 #include <map>
 #include <QString>
 #include <vector>
-// #include "item.h"
+#include "Item.h"
 // using namespace std;
 using std::vector;
 using std::map;
@@ -17,7 +17,7 @@ private:
     QString roomName;
     map<QString, Room*> exits;
     QString exitString();
-    // vector <Item> itemsInRoom;
+    vector <Item> itemsInRoom;
 
 
 public:
@@ -27,7 +27,7 @@ public:
     QString getRoomName() const;
     QString longDescription();
     Room* nextRoom(QString direction);
-    // void addItem(Item *inItem);
+    void addItem(Item *inItem);
     QString displayItem();
     int isItemInRoom(QString inString);
     void removeItemFromRoom(int location);

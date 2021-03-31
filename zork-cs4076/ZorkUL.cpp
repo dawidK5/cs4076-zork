@@ -2,6 +2,7 @@
 
 //using namespace std;
 #include "ZorkUL.h"
+#include "Item.h"
 
 /*
 ZorkUL::ZorkUL(Ui::MainWindow *& myUi) : myUi(myUi) {
@@ -22,7 +23,8 @@ void ZorkUL::createRooms()  {
          *d2, *d3, *d4, *d5, *d6, *d7, *d8,
          *e2, *e3, *e4, *e5, *e6, *e7, *e8,
          *f2, *f3, *f4, *f5, *f6, *f7, *f8,
-         *g4, *g5, *g6, *g7, *g8;
+         *g4, *g5, *g6, *g7, *g8,
+            *facility1;
 
     a4 = new Room("Forest");
     a5 = new Room("Forest");
@@ -129,7 +131,23 @@ void ZorkUL::createRooms()  {
     g8->setExits(g7, NULL, NULL, f8);
 
 
-        currentRoom = e6;
+    currentRoom = e6;
+
+
+    facility1 = new Room("Facility");
+
+
+    //ITEMS
+    d2->addItem(new Item("Engine Part 1"));
+    b6->addItem(new Item("rope"));
+    b6->addItem(new Item("planks"));
+    e5->addItem(new Item("sail"));
+    f3->addItem(new Item("Engine Part 2"));
+    c4->addItem(new Item("Engine Part 3"));
+    facility1->addItem(new Item("Engine Part 4"));
+    facility1->addItem(new Item("Journal Entry 1"));
+    facility1->addItem(new Item("Journal Entry 2"));
+    facility1->addItem(new Item("Journal Entry 3"));
 }
 
 /**

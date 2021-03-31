@@ -1,5 +1,6 @@
 #include "Room.h"
 // #include "Command.h"
+#include <iterator>
 
 
 Room::Room(QString roomName) {
@@ -22,7 +23,7 @@ QString Room::getRoomName() const {
 }
 
 QString Room::longDescription() {
-    return "room = " + roomName; //+ ".\n" + displayItem() + exitString();
+    return "room = " + roomName + ".\n" + displayItem() + exitString();
 }
 
 QString Room::exitString() {
@@ -42,10 +43,10 @@ Room* Room::nextRoom(QString direction) {
 	return next->second; // If there is a room, remove the "second" (Room*)
                 // part of the "pair" (<QString, Room*>) and return it.
 }
-/*
+
 void Room::addItem(Item *inItem) {
-    //cout <<endl;
-    //cout << "Just added" + inItem->getLongDescription();
+
+    // cout << "Just added" + inItem->getLongDescription();
     itemsInRoom.push_back(*inItem);
 }
 
@@ -90,4 +91,8 @@ int Room::isItemInRoom(QString inString)
     return -1;
 }
 
+/*
+QString operator+(const QString& lhs) {
+
+}
 */

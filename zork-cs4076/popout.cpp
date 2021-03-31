@@ -1,7 +1,6 @@
 #include "popout.h"
 #include "ui_popout.h"
 #include <QPixmap>
-#include <QDir>
 
 Popout::Popout(QWidget *parent) :
     QWidget(parent),

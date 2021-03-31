@@ -1,11 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "popout.h"
-
+#include <QGraphicsItem>
 #include <iostream>
 using std::cout;
 using std::endl;
 
+int countMoves = 0;
+int dayValue = 29;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     game = new ZorkUL();
+    // loadAssets();
     printWelcome();
 }
 
@@ -21,6 +24,7 @@ MainWindow::~MainWindow()
     delete ui;
     delete popout;
     delete game;
+
 }
 
 Ui::MainWindow *& getUI(MainWindow & win)
@@ -33,16 +37,39 @@ Ui::MainWindow *& getUI(MainWindow & win)
 
 void MainWindow::on_northBt_clicked() {
     print(game->go("north"));
+    ui->minimap->translate(-10, 1);
+    countMoves++;
+        if (countMoves == 4){
+            ui->daysLeftLCD->display(dayValue--);
+            countMoves = 0;
+        }
 }
 void MainWindow::on_southBt_clicked() {
     print(game->go("south"));
+    countMoves++;
+        if (countMoves == 4){
+            ui->daysLeftLCD->display(dayValue--);
+            countMoves = 0;
+        }
+
 }
 void MainWindow::on_eastBt_clicked() {
     print(game->go("east"));
+    countMoves++;
+        if (countMoves == 4){
+            ui->daysLeftLCD->display(dayValue--);
+            countMoves = 0;
+        }
 }
 void MainWindow::on_westBt_clicked() {
     print(game->go("west"));
+    countMoves++;
+        if (countMoves == 4){
+            ui->daysLeftLCD->display(dayValue--);
+            countMoves = 0;
+        }
 }
+
 
 
 void MainWindow::printWelcome() {
@@ -54,8 +81,30 @@ void MainWindow::printWelcome() {
     for (auto& itr : msgVect)
     tBoxRef->append(itr);
 
+    // ui->daysLeftLCD->display(dayValue);
+    QGraphicsScene* scene = new QGraphicsScene();
+    // scene->setSceneRect(0, 0, 161, 131);
 
-    // myUi->daysLeftLCD->set
+    QPixmap* image = new QPixmap(":/assets/mapwithgrid.png");
+    image->setDevicePixelRatio(4);
+    scene->addPixmap(*image);
+    QPixmap* pin = new QPixmap(":/assets/pin.png");
+    pin->setDevicePixelRatio(8);
+    QGraphicsPixmapItem* pinMap = new QGraphicsPixmapItem(*pin);
+    pinMap->setTransformationMode(Qt::SmoothTransformation);
+    pinMap->setScale(1);
+    scene->addItem(pinMap);
+
+    pinMap->setPos(307, 300);
+    /*
+
+
+    scene->addPixmap(*pin);
+    */
+    ui->minimap->setScene(scene);
+    // ui->minimap->fitInView(dynamic_cast<QGraphicsItem *>(pin));
+    ui->minimap->centerOn(pinMap);
+    ui->minimap->show();
     print(game->getCurrentRoom()->getRoomName());
 
 
