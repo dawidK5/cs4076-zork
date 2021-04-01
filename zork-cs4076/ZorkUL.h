@@ -32,7 +32,7 @@ public:
     ZorkUL();
 	void play();
     QString go(const QString& direction);
-    inline const Room* getCurrentRoom() {
+    inline Room* getCurrentRoom() const {
         return currentRoom;
     }
 

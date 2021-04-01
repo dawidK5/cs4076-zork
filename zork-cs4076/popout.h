@@ -13,6 +13,7 @@ class Popout : public QWidget
 
 public:
     explicit Popout(QWidget *parent = nullptr);
+    void setMap(const QPixmap&);
     ~Popout();
 
 private:

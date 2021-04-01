@@ -1,7 +1,6 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
-<qresource>
-<file>assets/mapwithgrid.png</file>
-<file>assets/pin.png</file>
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file>assets/pin.png</file>
+        <file>assets/mapwithgrid2.png</file>
+    </qresource>
 </RCC>

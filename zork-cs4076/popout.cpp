@@ -7,13 +7,12 @@ Popout::Popout(QWidget *parent) :
     ui(new Ui::Popout)
 {
     ui->setupUi(this);
-
-    QPixmap pix(":/assets/mapwithgrid.png");
-    pix.setDevicePixelRatio(4);
-    ui->label->setPixmap(pix);
 }
 
 Popout::~Popout()
 {
     delete ui;
+}
+void Popout::setMap(const QPixmap& map) {
+    ui->label->setPixmap(map);
 }

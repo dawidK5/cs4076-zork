@@ -2,8 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsPixmapItem>
 #include "ZorkUL.h"
 #include "popout.h"
+#include <array>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,10 +17,13 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+friend QPixmap* getAssets(MainWindow &);
+
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    friend Ui::MainWindow *& getUI(MainWindow &);   // return reference to the ui pointer
+
+    // friend Ui::MainWindow *& getUI(MainWindow &);   return reference to the ui pointer
 
 
 private slots:
@@ -29,10 +34,16 @@ private slots:
     void on_viewMapBt_clicked();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
     ZorkUL* game;
     Popout* popout;
-    void printWelcome();
+    QPixmap* assets[2];
+    QGraphicsPixmapItem* pinMap;
+
     void print(const QString&);
+    void printWelcome();
+    void setupAssets();
+    void updateCompass();
+
 };
 #endif // MAINWINDOW_H
