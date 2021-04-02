@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 
+QMap<QString, QString> Room::descrMap = QMap<QString, QString>();
 int main(int argc, char *argv[])
 {
 

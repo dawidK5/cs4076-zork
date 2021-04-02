@@ -15,6 +15,7 @@ using namespace std;
 class ZorkUL {
 private:
 
+
     // Parser parser;
 	Room *currentRoom;
 	void createRooms();

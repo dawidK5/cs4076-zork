@@ -3,6 +3,8 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
+# CONFIG -= qt
+CONFIG += console
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -12,6 +14,7 @@ SOURCES += \
     Item.cpp \
     Room.cpp \
     ZorkUL.cpp \
+    dialog.cpp \
     main.cpp \
     mainwindow.cpp \
     popout.cpp
@@ -20,10 +23,12 @@ HEADERS += \
     Item.h \
     Room.h \
     ZorkUL.h \
+    dialog.h \
     mainwindow.h \
     popout.h
 
 FORMS += \
+    dialog.ui \
     mainwindow.ui \
     popout.ui
 

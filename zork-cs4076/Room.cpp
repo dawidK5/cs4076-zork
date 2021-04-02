@@ -1,10 +1,14 @@
 #include "Room.h"
 // #include "Command.h"
 #include <iterator>
+#include <QMap>
+
 
 
 Room::Room(QString roomName) {
+
     this->roomName = roomName;
+    firstVisit = true;
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
@@ -23,6 +27,10 @@ QString Room::getRoomName() const {
 }
 
 QString Room::longDescription() {
+    if(firstVisit) {
+        firstVisit = false;
+        return "room = " + roomName + ".\n" + descrMap[roomName] +"\n." + displayItem() + exitString();
+    }
     return "room = " + roomName + ".\n" + displayItem() + exitString();
 }
 
@@ -91,6 +99,10 @@ int Room::isItemInRoom(QString inString)
     return -1;
 }
 
+QMap<QString,QString>& Room::getTheMap() {
+    cout << &descrMap << endl;
+    return descrMap;
+}
 /*
 QString operator+(const QString& lhs) {
 

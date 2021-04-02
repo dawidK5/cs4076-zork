@@ -3,7 +3,13 @@
 //using namespace std;
 #include "ZorkUL.h"
 #include "Item.h"
-
+#include <fstream>
+#include <QString>
+#include <QMap>
+#include <string>
+#include <QFile>
+#include <QTextStream>
+using std::string;
 /*
 ZorkUL::ZorkUL(Ui::MainWindow *& myUi) : myUi(myUi) {
 	createRooms();
@@ -13,6 +19,52 @@ ZorkUL::ZorkUL(Ui::MainWindow *& myUi) : myUi(myUi) {
 }
 */
 ZorkUL::ZorkUL() {
+    QFile places(":/assets/places.txt");
+    if(!places.open(QIODevice::ReadOnly)) {
+        cout << "error" <<endl;
+    }
+
+    QTextStream in(&places);
+    int count = 1;
+    QMap<QString, QString>& descrMap = Room::getTheMap();
+    while(! in.atEnd()) {
+        QString line = in.readLine();
+        if((count % 3) == 1) {
+            QString descr = in.readLine();
+            descrMap.insert(line, descr);
+            count++;
+        }
+        count++;
+    }
+
+    places.close();
+
+    /*
+    ifstream places("assets\\places.txt");
+    places.open(":/assets/places.txt");
+
+    cout << "1234" <<endl;
+    if (places) {
+        cout << "file opens" <<endl;
+        string line;
+        QString rName, rDescr;
+        int count = 1;
+        while(getline(places, line)) {
+            rName = QString::fromStdString(line);
+            if((count % 3) == 1) {
+                getline(places, line);
+                rDescr = QString::fromStdString(line);
+                descrMap.insert(rName, rDescr);
+                count++;
+            }
+            count++;
+        }
+    }
+    */
+
+    // cout << descrMap[QString("hello")] << endl;
+
+
     createRooms();
 }
 
@@ -40,7 +92,7 @@ void ZorkUL::createRooms()  {
     b8 = new Room("Forest");
 
     c2 = new Room("Crashed Ship");
-    c3 = new Room("Planes");
+    c3 = new Room("Plains");
     c4 = new Room("Lake");
     c5 = new Room("Lake");
     c6 = new Room("Forest");
@@ -48,40 +100,40 @@ void ZorkUL::createRooms()  {
     c8 = new Room("Mountain");
 
     d2 = new Room("Crashed Ship");
-    d3 = new Room("Planes");
+    d3 = new Room("Plains");
     d4 = new Room("Dead Forest");
     d5 = new Room("Dead Forest");
     d6 = new Room("River");
     d7 = new Room("Mountain");
     d8 = new Room("Mountain");
 
-    e2 = new Room("Planes");
+    e2 = new Room("Plains");
     e3 = new Room("Small Mountain");
     e4 = new Room("Dead Forest");
     e5 = new Room("Dead Forest");
-    e6 = new Room("Planes");
+    e6 = new Room("Plains");
     e7 = new Room("Mountain With Door");
     e8 = new Room("Mountain");
 
     f2 = new Room("Forest");
     f3 = new Room("Small Mountain");
     f4 = new Room("Small Mountain");
-    f5 = new Room("Planes");
+    f5 = new Room("Plains");
     f6 = new Room("Forest");
     f7 = new Room("Mountain");
     f8 = new Room("Mountain");
 
     g4 = new Room("Small Mountain");
-    g5 = new Room("Planes");
+    g5 = new Room("Plains");
     g6 = new Room("Forest");
-    g7 = new Room("Planes");
+    g7 = new Room("Plains");
     g8 = new Room("Mountain");
 
     //EXITS
     //          (N, E, S, W)
     a4->setExits(NULL, b4, a5, NULL);
     a5->setExits(a4, b5, a6, NULL);
-    a6->setExits(a5, b6, a6, NULL);
+    a6->setExits(a5, b6, a7, NULL);
     a7->setExits(a6, b7, NULL, NULL);
 
     b2->setExits(NULL, c2, b3, NULL);

@@ -3,12 +3,14 @@
 #include "popout.h"
 #include <QGraphicsItem>
 #include <iostream>
+#include "dialog.h"
 
 using std::cout;
 using std::endl;
 
 int countMoves = 0;
-int dayValue = 29;
+int dayValue = 30;
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -47,10 +49,21 @@ void MainWindow::on_northBt_clicked() {
     ui->minimap->centerOn(pinMap);
     countMoves++;
         if (countMoves == 4){
-            ui->daysLeftLCD->display(dayValue--);
+            ui->daysLeftLCD->display(--dayValue);
             countMoves = 0;
         }
         updateCompass();
+        if(dayValue == 0){
+                    Dialog d;
+                    d.show();
+                    ui-> daysLeftLCD->display(30);
+                    game = new ZorkUL();
+                    printWelcome();
+                    pinMap->setPos(337, 323);
+                    countMoves = 0;
+                    dayValue = 30;
+                    ui->minimap->centerOn(pinMap);
+        }
 }
 void MainWindow::on_southBt_clicked() {
     print(game->go("south"));
@@ -58,10 +71,21 @@ void MainWindow::on_southBt_clicked() {
     ui->minimap->centerOn(pinMap);
     countMoves++;
         if (countMoves == 4){
-            ui->daysLeftLCD->display(dayValue--);
+            ui->daysLeftLCD->display(--dayValue);
             countMoves = 0;
         }
         updateCompass();
+        if(dayValue == 0){
+                    Dialog d;
+                    d.show();
+                    ui-> daysLeftLCD->display(30);
+                    game = new ZorkUL();
+                    printWelcome();
+                    pinMap->setPos(337, 323);
+                    countMoves = 0;
+                    dayValue = 30;
+                    ui->minimap->centerOn(pinMap);
+        }
 }
 
 
@@ -71,10 +95,21 @@ void MainWindow::on_eastBt_clicked() {
     ui->minimap->centerOn(pinMap);
     countMoves++;
         if (countMoves == 4){
-            ui->daysLeftLCD->display(dayValue--);
+            ui->daysLeftLCD->display(--dayValue);
             countMoves = 0;
         }
         updateCompass();
+        if(dayValue == 0){
+                    Dialog d;
+                    d.show();
+                    ui-> daysLeftLCD->display(30);
+                    game = new ZorkUL();
+                    printWelcome();
+                    pinMap->setPos(337, 323);
+                    countMoves = 0;
+                    dayValue = 30;
+                    ui->minimap->centerOn(pinMap);
+        }
 
 }
 void MainWindow::on_westBt_clicked() {
@@ -83,10 +118,21 @@ void MainWindow::on_westBt_clicked() {
     ui->minimap->centerOn(pinMap);
     countMoves++;
         if (countMoves == 4){
-            ui->daysLeftLCD->display(dayValue--);
+            ui->daysLeftLCD->display(--dayValue);
             countMoves = 0;
         }
         updateCompass();
+        if(dayValue == 0){
+                    Dialog d;
+                    d.show();
+                    ui-> daysLeftLCD->display(30);
+                    game = new ZorkUL();
+                    printWelcome();
+                    pinMap->setPos(337, 323);
+                    countMoves = 0;
+                    dayValue = 30;
+                    ui->minimap->centerOn(pinMap);
+        }
 }
 
 void MainWindow::updateCompass() {
