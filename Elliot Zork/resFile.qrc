@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/pin.png</file>
+        <file>assets/mapwithgrid2.png</file>
+    </qresource>
+</RCC>
