@@ -2,15 +2,14 @@
 #define ZORKUL_H_
 
 
-// #include "mainwindow.h"
-// #include "ui_mainwindow.h"
+
 // #include "Command.h"
 // #include "Parser.h"
-#include "Room.h"
-// #include "item.h"
-#include <iostream>
+//
+// #include <iostream>
 
-using namespace std;
+#include "Room.h"
+#include "Item.h"
 
 class ZorkUL {
 private:
@@ -18,6 +17,10 @@ private:
 
     // Parser parser;
 	Room *currentRoom;
+    Room *facility1;
+    Room *e7;
+    const Item* weapon;
+    vector<Item> inventory;
 	void createRooms();
 	void printWelcome();
     // bool processCommand(Command command);
@@ -36,6 +39,13 @@ public:
     inline Room* getCurrentRoom() const {
         return currentRoom;
     }
+    QString setCurRoom();
+    inline const Item* getWeapon() const {
+        return weapon;
+    };
+    void addInvItem(const Item&);
+    void removeInvItem();
+
 
 };
 

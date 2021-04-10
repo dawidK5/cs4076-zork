@@ -1,10 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include <map>
 #include <QString>
-#include <iostream>
-using namespace std;
 
 class Item {
 private:
@@ -16,9 +13,12 @@ private:
 
 public:
     Item (QString description, float inValue);
+    Item(const Item&);
     Item (QString description);
-    QString getShortDescription();
-    QString getLongDescription();
+    QString getShortDescription() const;
+    QString getLongDescription() const;
+    template <typename T>
+    T setWeaponCheck(T isWeapon);
     //int getWeight();
     //void setWeight(int weightGrams);
     float getValue();

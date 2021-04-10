@@ -1,14 +1,23 @@
-#include "Room.h"
-// #include "Command.h"
+
+
+
+/*
+
+#include "Command.h"
 #include <iterator>
 #include <QMap>
-
-
+#include "droid.h"
+*/
+#include <iostream>
+#include "Room.h"
+using std::cout, std::endl;
+using droidfrnd::droid;
 
 Room::Room(QString roomName) {
 
     this->roomName = roomName;
     firstVisit = true;
+    nonpc = nullptr;
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
@@ -42,6 +51,14 @@ QString Room::exitString() {
     }
 
 	return returnString;
+}
+
+void Room::removeItems() {
+    vector <Item> itemsInRoom2;
+    itemsInRoom = itemsInRoom2;
+}
+vector <Item> Room::getItems() {
+    return itemsInRoom;
 }
 
 Room* Room::nextRoom(QString direction) {
@@ -108,3 +125,41 @@ QString operator+(const QString& lhs) {
 
 }
 */
+bool Room::hasDroid() const {
+    return (dynamic_cast<droid*>(nonpc) != nullptr);
+}
+
+droid* Room::getDroid() {
+    if(!hasDroid()) {
+        throw droidExcpt(QStringLiteral("Dynamic cast exception: This isn't the droid you are looking for"));
+    }
+    return dynamic_cast<droid*>(nonpc);
+}
+
+void Room::addNpc(Npc* n) {
+    nonpc = n;
+}
+/*
+void Room::killDroidMoveItem() {
+    droid* const d = getDroid();
+    itemsInRoom.push_back(*(new Item()));
+    delete *d;
+    nonpc = nullptr;
+
+}
+*/
+bool Room::hasNpc() const {
+    return nonpc != nullptr;
+}
+
+void Room::killDroid() {
+    delete nonpc;
+}
+Npc* Room::getNpc() {
+    return nonpc;
+}
+
+Room::~Room() {
+    itemsInRoom.clear();
+    delete nonpc;
+}

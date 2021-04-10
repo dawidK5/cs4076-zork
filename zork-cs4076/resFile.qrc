@@ -3,5 +3,6 @@
         <file>assets/pin.png</file>
         <file>assets/mapwithgrid2.png</file>
         <file>assets/places.txt</file>
+        <file>assets/facilitymap2.png</file>
     </qresource>
 </RCC>

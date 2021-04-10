@@ -2,7 +2,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++17
 # CONFIG -= qt
 CONFIG += console
 
@@ -15,20 +15,31 @@ SOURCES += \
     Room.cpp \
     ZorkUL.cpp \
     dialog.cpp \
+    droid.cpp \
+    human.cpp \
+    journals.cpp \
     main.cpp \
     mainwindow.cpp \
-    popout.cpp
+    npc.cpp \
+    popout.cpp \
+    weapon.cpp
 
 HEADERS += \
     Item.h \
     Room.h \
     ZorkUL.h \
     dialog.h \
+    droid.h \
+    human.h \
+    journals.h \
     mainwindow.h \
-    popout.h
+    npc.h \
+    popout.h \
+    weapon.h
 
 FORMS += \
     dialog.ui \
+    journals.ui \
     mainwindow.ui \
     popout.ui
 

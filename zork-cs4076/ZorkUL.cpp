@@ -1,24 +1,13 @@
-// #include <iostream>
-
-//using namespace std;
+#include "human.h"
 #include "ZorkUL.h"
-#include "Item.h"
-#include <fstream>
-#include <QString>
-#include <QMap>
-#include <string>
 #include <QFile>
 #include <QTextStream>
-using std::string;
-/*
-ZorkUL::ZorkUL(Ui::MainWindow *& myUi) : myUi(myUi) {
-	createRooms();
-    printWelcome();
-   // myUi->storyTextBox->setText("Hello All!");
+#include "weapon.h"
+#include <iostream>
+using std::cout, std::endl;
+using droidfrnd::droid;
 
-}
-*/
-ZorkUL::ZorkUL() {
+ZorkUL::ZorkUL() : weapon(new Weapon("blaster", 20)) {
     QFile places(":/assets/places.txt");
     if(!places.open(QIODevice::ReadOnly)) {
         cout << "error" <<endl;
@@ -38,33 +27,6 @@ ZorkUL::ZorkUL() {
     }
 
     places.close();
-
-    /*
-    ifstream places("assets\\places.txt");
-    places.open(":/assets/places.txt");
-
-    cout << "1234" <<endl;
-    if (places) {
-        cout << "file opens" <<endl;
-        string line;
-        QString rName, rDescr;
-        int count = 1;
-        while(getline(places, line)) {
-            rName = QString::fromStdString(line);
-            if((count % 3) == 1) {
-                getline(places, line);
-                rDescr = QString::fromStdString(line);
-                descrMap.insert(rName, rDescr);
-                count++;
-            }
-            count++;
-        }
-    }
-    */
-
-    // cout << descrMap[QString("hello")] << endl;
-
-
     createRooms();
 }
 
@@ -73,10 +35,9 @@ void ZorkUL::createRooms()  {
          *b2, *b3, *b4, *b5, *b6, *b7, *b8,
          *c2, *c3, *c4, *c5, *c6, *c7, *c8,
          *d2, *d3, *d4, *d5, *d6, *d7, *d8,
-         *e2, *e3, *e4, *e5, *e6, *e7, *e8,
+         *e2, *e3, *e4, *e5, *e6,  *e8,
          *f2, *f3, *f4, *f5, *f6, *f7, *f8,
-         *g4, *g5, *g6, *g7, *g8,
-            *facility1;
+         *g4, *g5, *g6, *g7, *g8;
 
     a4 = new Room("Forest");
     a5 = new Room("Forest");
@@ -92,7 +53,7 @@ void ZorkUL::createRooms()  {
     b8 = new Room("Forest");
 
     c2 = new Room("Crashed Ship");
-    c3 = new Room("Plains");
+    c3 = new Room("Planes");
     c4 = new Room("Lake");
     c5 = new Room("Lake");
     c6 = new Room("Forest");
@@ -100,33 +61,33 @@ void ZorkUL::createRooms()  {
     c8 = new Room("Mountain");
 
     d2 = new Room("Crashed Ship");
-    d3 = new Room("Plains");
+    d3 = new Room("Planes");
     d4 = new Room("Dead Forest");
     d5 = new Room("Dead Forest");
     d6 = new Room("River");
     d7 = new Room("Mountain");
     d8 = new Room("Mountain");
 
-    e2 = new Room("Plains");
+    e2 = new Room("Planes");
     e3 = new Room("Small Mountain");
     e4 = new Room("Dead Forest");
     e5 = new Room("Dead Forest");
-    e6 = new Room("Plains");
+    e6 = new Room("Planes");
     e7 = new Room("Mountain With Door");
     e8 = new Room("Mountain");
 
     f2 = new Room("Forest");
     f3 = new Room("Small Mountain");
     f4 = new Room("Small Mountain");
-    f5 = new Room("Plains");
+    f5 = new Room("Planes");
     f6 = new Room("Forest");
     f7 = new Room("Mountain");
     f8 = new Room("Mountain");
 
     g4 = new Room("Small Mountain");
-    g5 = new Room("Plains");
+    g5 = new Room("Planes");
     g6 = new Room("Forest");
-    g7 = new Room("Plains");
+    g7 = new Room("Planes");
     g8 = new Room("Mountain");
 
     //EXITS
@@ -187,10 +148,11 @@ void ZorkUL::createRooms()  {
 
 
     facility1 = new Room("Facility");
+    facility1->setExits(NULL, NULL, NULL, NULL);
 
 
     //ITEMS
-    d2->addItem(new Item("Engine Part 1"));
+    // d2->addItem(new Item("Engine Part 1"));
     b6->addItem(new Item("rope"));
     b6->addItem(new Item("planks"));
     e5->addItem(new Item("sail"));
@@ -198,138 +160,23 @@ void ZorkUL::createRooms()  {
     c4->addItem(new Item("Engine Part 3"));
     facility1->addItem(new Item("Engine Part 4"));
     facility1->addItem(new Item("Journal Entry 1"));
-    facility1->addItem(new Item("Journal Entry 2"));
     facility1->addItem(new Item("Journal Entry 3"));
+    facility1->addItem(new Item("Journal Entry 6"));
+    facility1->addItem(new Item("Journal Entry 9"));
+
+    facility1->addNpc(new droid(new Item("Advanced PCB")));
+    d2->addNpc(new Human("Advanced PCB", new Item("Engine Part 1")));
 }
 
-/**
- *  Main play routine.  Loops until end of play.
- */
-/*
-void ZorkUL::play() {
-	printWelcome();
-
-	// Enter the main command loop.  Here we repeatedly read commands and
-	// execute them until the ZorkUL game is over.
-
-	bool finished = false;
-	while (!finished) {
-		// Create pointer to command and give it a command.
-		Command* command = parser.getCommand();
-		// Pass dereferenced command and check for end of game.
-		finished = processCommand(*command);
-		// Free the memory allocated by "parser.getCommand()"
-		//   with ("return new Command(...)")
-		delete command;
-	}
-	cout << endl;
-	cout << "end" << endl;
-}
-*/
-
-
-/**
- * Given a command, process (that is: execute) the command.
- * If this command ends the ZorkUL game, true is returned, otherwise false is
- * returned.
- */
-/*
-bool ZorkUL::processCommand(Command command) {
-	if (command.isUnknown()) {
-		cout << "invalid input"<< endl;
-		return false;
-	}
-
-    QString commandWord = command.getCommandWord();
-	if (commandWord.compare("info") == 0)
-		printHelp();
-
-	else if (commandWord.compare("map") == 0)
-		{
-        cout << "[h] --- [f] --- [g]" << endl;
-		cout << "         |         " << endl;
-        cout << "         |         " << endl;
-		cout << "[c] --- [a] --- [b]" << endl;
-		cout << "         |         " << endl;
-		cout << "         |         " << endl;
-		cout << "[i] --- [d] --- [e]" << endl;
-		}
-
-	else if (commandWord.compare("go") == 0)
-		goRoom(command);
-
-    else if (commandWord.compare("take") == 0)
-    {
-       	if (!command.hasSecondWord()) {
-		cout << "incomplete input"<< endl;
-        }
-        else
-         if (command.hasSecondWord()) {
-        cout << "you're trying to take " + command.getSecondWord() << endl;
-        int location = currentRoom->isItemInRoom(command.getSecondWord());
-        if (location  < 0 )
-            cout << "item is not in room" << endl;
-        else
-            cout << "item is in room" << endl;
-            cout << "index number " << + location << endl;
-            cout << endl;
-            cout << currentRoom->longDescription() << endl;
-        }
+QString ZorkUL::setCurRoom() {
+    if(currentRoom != facility1){
+        currentRoom = facility1;
+    }else{
+        currentRoom = e7;
     }
-
-    else if (commandWord.compare("put") == 0)
-    {
-
-    }
-    */
-    /*
-    {
-    if (!command.hasSecondWord()) {
-		cout << "incomplete input"<< endl;
-        }
-        else
-            if (command.hasSecondWord()) {
-            cout << "you're adding " + command.getSecondWord() << endl;
-            itemsInRoom.push_Back;
-        }
-    }
-
-    else if (commandWord.compare("quit") == 0) {
-		if (command.hasSecondWord())
-			cout << "overdefined input"<< endl;
-		else
-            return true; // signal to quit
-	}
-	return false;
-}
-*/
-/** COMMANDS **/
-/*
-void ZorkUL::printHelp() {
-	cout << "valid inputs are; " << endl;
-	parser.showCommands();
-
+    return currentRoom->longDescription();
 }
 
-void ZorkUL::goRoom(Command command) {
-	if (!command.hasSecondWord()) {
-		cout << "incomplete input"<< endl;
-		return;
-	}
-
-    QString direction = command.getSecondWord();
-
-	// Try to leave current room.
-	Room* nextRoom = currentRoom->nextRoom(direction);
-
-	if (nextRoom == NULL)
-		cout << "underdefined input"<< endl;
-	else {
-		currentRoom = nextRoom;
-		cout << currentRoom->longDescription() << endl;
-	}
-}
-*/
 
 /**
  * @brief ZorkUL::go
@@ -337,9 +184,9 @@ void ZorkUL::goRoom(Command command) {
  * @return
  */
 QString ZorkUL::go(const QString& direction) {
-	//Make the direction lowercase
-	//transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
-	//Move to the next room
+    // Make the direction lowercase
+    // transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
+    // Move to the next room
 	Room* nextRoom = currentRoom->nextRoom(direction);
 	if (nextRoom == NULL)
 		return("direction null");
@@ -349,4 +196,3 @@ QString ZorkUL::go(const QString& direction) {
 		return currentRoom->longDescription();
 	}
 }
-

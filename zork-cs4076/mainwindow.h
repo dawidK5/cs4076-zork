@@ -2,10 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QGraphicsPixmapItem>
 #include "ZorkUL.h"
+#include <QGraphicsPixmapItem>
 #include "popout.h"
-#include <array>
+#include <QListWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,15 +23,21 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    // friend Ui::MainWindow *& getUI(MainWindow &);   return reference to the ui pointer
 
 
 private slots:
+    void on_takeBt_clicked();
+    void on_JournalsBt_clicked();
+    void on_searchBt_clicked();
     void on_northBt_clicked();
     void on_southBt_clicked();
     void on_eastBt_clicked();
     void on_westBt_clicked();
     void on_viewMapBt_clicked();
+    void on_attackBt_clicked();
+    void on_tradeBt_clicked();
+
+    void on_itemsList_itemClicked(QListWidgetItem *item);
 
 private:
     Ui::MainWindow* ui;
@@ -44,6 +50,8 @@ private:
     void printWelcome();
     void setupAssets();
     void updateCompass();
+    void disableCompass();
+    void checkForNpcs();
 
 };
 #endif // MAINWINDOW_H
