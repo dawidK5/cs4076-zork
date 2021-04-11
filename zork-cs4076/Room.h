@@ -3,14 +3,7 @@
 
 #include <QString>
 #include <QMap>
-/*
 
-
-
-
-
-
-*/
 #include "droid.h"
 #include "Item.h"
 #include "npc.h"
@@ -24,17 +17,19 @@ using std::map;
 class Room {
 
 private:
-    static QMap<QString, QString> descrMap;
+    inline static QMap<QString, QString> descrMap = QMap<QString, QString>();
     QString roomName;
     map<QString, Room*> exits;
     QString exitString();
-    vector <Item> itemsInRoom;
+    vector<Item> itemsInRoom;
     bool firstVisit;
     Npc* nonpc;
 
 public:
     Room(QString roomName);
     ~Room();
+    void clear();
+    void setName(QString);
     droidfrnd::droid* getDroid();
     Npc* getNpc();
     bool hasNpc() const;

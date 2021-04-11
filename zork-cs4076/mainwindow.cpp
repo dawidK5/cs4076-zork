@@ -2,12 +2,13 @@
 #include "human.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "nodescriptionexcpt.h"
 #include "journals.h"
 #include <iostream>
 using std::cout;
 using std::endl;
 
-using droidfrnd::droid;
+using droidfrnd::droid, nde::NoDescriptionExcpt;
 
 int countMoves = 0;
 int dayValue = 30;
@@ -19,10 +20,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     game = new ZorkUL();
-    ui->JournalsBt->hide();
-    ui->searchBt->hide();
-    ui->takeBt->hide();
+
     setupAssets();
+    resetGui();
     printWelcome();
 }
 
@@ -74,7 +74,7 @@ void MainWindow::on_takeBt_clicked() {
         if(game->getCurrentRoom()->getRoomName() == "Facility"){
             ui->JournalsBt->show();
         }
-        Item *itemRem = &items[x];
+        // Item *itemRem = &items[x];
         x++;
     }
     game->getCurrentRoom()->removeItems();
@@ -86,11 +86,17 @@ void MainWindow::on_JournalsBt_clicked() {
 }
 
 void MainWindow::on_searchBt_clicked() {
-    print(game->setCurRoom());
+    try {
+       print(game->setCurRoom());
+    }  catch (NoDescriptionExcpt &e) {
+        cout << e.what() <<endl;
+    }
+
     updateCompass();
     if(game->getCurrentRoom()->getRoomName() == "Facility"){
         ui->searchBt->setText("Leave Facility");
         ui->searchBt->update();
+        checkForNpcs();
     }else{
         ui->searchBt->setText("Search Facility");
         ui->searchBt->update();
@@ -263,9 +269,6 @@ void MainWindow::setupAssets() {
     mini->centerOn(pinMap);
     mini->show();
 
-    ui->attackBt->hide();
-    ui->tradeBt->hide();
-
 }
 
 void MainWindow::printWelcome() {
@@ -301,8 +304,13 @@ void MainWindow::checkForNpcs() {
                 ui->tradeBt->show();
             } else {
                 disableCompass();
+
                 ui->tradeBt->hide();
-                ui->attackBt->show();
+                if(!cRoom.getDroid()->isDead()) {
+                    ui->attackBt->show();
+                    ui->searchBt->hide();
+                }
+
 
             }
         }  catch (const std::exception& e) {
@@ -325,22 +333,33 @@ void MainWindow::on_attackBt_clicked()
     if(enemy->isDead()) {
         ui->attackBt->setDisabled(true);
         ui->attackBt->hide();
-        Room& tempR = * (game->getCurrentRoom());
-        tempR.addItem(new Item( *getDropItem(*enemy)) );
-        // tempR->killDroid();
-        // take items button displays
+        ui->searchBt->show();
+        game->getCurrentRoom()->addItem(new Item( *getDropItem(*enemy)) );
+
         return;
 
     } else {
         if(rand()%2) {
-            int hit = rand() % 50 + 1;
-            print("Ouch, you got hit! -" + QString(hit) + "HP");
+            int hit = rand() % 15 + 5;
+            print(QStringLiteral("Ouch, you got hit! -%1 HP").arg(hit));
             int hp = ui->healthBar->value();
             if (hit >= hp)
             {
-                print( "Sorry, you died.");
+                print( QStringLiteral("Sorry, you died.") );
                 ui->healthBar->setValue(0);
                 // function call for resetting the game + dialog here
+                Dialog d;
+                d.show();
+                game->resetGame();
+                resetGui();
+                ui->storyTextBox->clear();
+
+                game = new ZorkUL();
+                printWelcome();
+                pinMap->setPos(337, 323);
+                countMoves = 0;
+                dayValue = 30;
+                ui->minimap->centerOn(pinMap);
             }
             ui->healthBar->setValue(hp-hit);
         }
@@ -367,9 +386,10 @@ void MainWindow::on_tradeBt_clicked()
         print(tradesman->getDialogue());
 
 
+
     } else {
         if(inv->currentItem() != nullptr) {
-            print(QString("%s is not what I'm looking for. If you find an advanced PCB come back so we can trade.\"").arg(inv->currentItem()->text()));
+            print(QStringLiteral("%1 is not what I'm looking for. If you find an advanced PCB come back so we can trade.\"").arg(inv->currentItem()->text()));
         } else {
             print("\"All right, so which item do you want to trade?\" Jeff asked.");
         }
@@ -383,4 +403,15 @@ void MainWindow::on_itemsList_itemClicked(QListWidgetItem *item)
 {
     item->setSelected(true);
     ui->tradeBt->setDisabled(false);
+}
+
+void MainWindow::resetGui() {
+    ui->tradeBt->hide();
+    ui->tradeBt->setDisabled(true);
+    ui->attackBt->hide();
+    ui->JournalsBt->hide();
+    ui->searchBt->hide();
+    updateCompass();
+    pinMap->setPos(337, 323);
+    ui->minimap->centerOn(pinMap);
 }

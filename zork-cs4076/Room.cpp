@@ -1,25 +1,13 @@
-
-
-
-/*
-
-#include "Command.h"
-#include <iterator>
-#include <QMap>
-#include "droid.h"
-*/
 #include <iostream>
 #include "Room.h"
+#include "nodescriptionexcpt.h"
 using std::cout, std::endl;
-using droidfrnd::droid;
+using droidfrnd::droid, nde::NoDescriptionExcpt;
 
-Room::Room(QString roomName) {
-
-    this->roomName = roomName;
-    firstVisit = true;
-    nonpc = nullptr;
+Room::Room(QString roomName) : roomName(roomName), firstVisit(true), nonpc(nullptr) { }
+void Room::setName(QString rmName) {
+    roomName = rmName;
 }
-
 void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 	if (north != NULL)
 		exits["north"] = north;
@@ -38,6 +26,9 @@ QString Room::getRoomName() const {
 QString Room::longDescription() {
     if(firstVisit) {
         firstVisit = false;
+        if(!descrMap.contains(roomName)) {
+            throw NoDescriptionExcpt(QStringLiteral("The %1 room decription missing: check places.txt").arg(roomName));
+        }
         return "room = " + roomName + ".\n" + descrMap[roomName] +"\n." + displayItem() + exitString();
     }
     return "room = " + roomName + ".\n" + displayItem() + exitString();
@@ -120,18 +111,15 @@ QMap<QString,QString>& Room::getTheMap() {
     cout << &descrMap << endl;
     return descrMap;
 }
-/*
-QString operator+(const QString& lhs) {
 
-}
-*/
+
 bool Room::hasDroid() const {
     return (dynamic_cast<droid*>(nonpc) != nullptr);
 }
 
 droid* Room::getDroid() {
     if(!hasDroid()) {
-        throw droidExcpt(QStringLiteral("Dynamic cast exception: This isn't the droid you are looking for"));
+        throw droidExcpt(QString("Dynamic cast exception in %1: This isn't the droid you are looking for").arg(__FILE__));
     }
     return dynamic_cast<droid*>(nonpc);
 }
@@ -139,15 +127,7 @@ droid* Room::getDroid() {
 void Room::addNpc(Npc* n) {
     nonpc = n;
 }
-/*
-void Room::killDroidMoveItem() {
-    droid* const d = getDroid();
-    itemsInRoom.push_back(*(new Item()));
-    delete *d;
-    nonpc = nullptr;
 
-}
-*/
 bool Room::hasNpc() const {
     return nonpc != nullptr;
 }
@@ -158,7 +138,10 @@ void Room::killDroid() {
 Npc* Room::getNpc() {
     return nonpc;
 }
-
+void Room::clear() {
+    itemsInRoom.clear();
+    killDroid();
+}
 Room::~Room() {
     itemsInRoom.clear();
     delete nonpc;

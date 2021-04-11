@@ -36,7 +36,6 @@ private slots:
     void on_viewMapBt_clicked();
     void on_attackBt_clicked();
     void on_tradeBt_clicked();
-
     void on_itemsList_itemClicked(QListWidgetItem *item);
 
 private:
@@ -49,6 +48,7 @@ private:
     void print(const QString&);
     void printWelcome();
     void setupAssets();
+    void resetGui();
     void updateCompass();
     void disableCompass();
     void checkForNpcs();

@@ -20,20 +20,20 @@ private:
     Room *facility1;
     Room *e7;
     const Item* weapon;
-    vector<Item> inventory;
+    Room rooms[45];
+    // vector<Item> inventory;
 	void createRooms();
 	void printWelcome();
-    // bool processCommand(Command command);
+
 	void printHelp();
-    // void goRoom(Command command);
+
     void createItems();
     void displayItems();
-    // Ui::MainWindow *& myUi;
 
 
 public:
-    //ZorkUL(Ui::MainWindow *&);
     ZorkUL();
+    ~ZorkUL();
 	void play();
     QString go(const QString& direction);
     inline Room* getCurrentRoom() const {
@@ -43,8 +43,9 @@ public:
     inline const Item* getWeapon() const {
         return weapon;
     };
-    void addInvItem(const Item&);
-    void removeInvItem();
+    void resetGame();
+    // void addInvItem(const Item&);
+    // void removeInvItem();
 
 
 };

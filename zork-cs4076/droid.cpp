@@ -1,14 +1,8 @@
-/*
-
-#include "weapon.h"
-#include <random>
-
-*/
 #include "droid.h"
 #include <time.h>
 using droidfrnd::droid;
 
-droid::droid(Item* dropp) : Npc() {//, drop(dropp) {
+droid::droid(Item* dropp) : Npc() {
     curLine = 0;
     info.health = 80;
     info.attackDamage = 16;
@@ -33,15 +27,15 @@ droid::droid(const droid& orig)
 }
 
 QString droid::operator+(const Item& weapon) {
-    uint16_t damage = static_cast<const Weapon&>(weapon).getDamage() * ((rand()/float(RAND_MAX))*3);
-    if(damage > info.health) {
+    int damage = static_cast<const Weapon&>(weapon).getDamage() * ((rand()/float(RAND_MAX))*2);
+    if(damage > (int)info.health) {
         info.dead = 1;
-        QString finish = "Dealt " + QString(damage) + "damage."+ getDialogue();
+        QString finish = QStringLiteral("Dealt %1 damage.").arg(damage) + getDialogue();
         curLine++;
         return finish;
     }
-    info.health -= damage;
-    return "Dealt " + QString(damage) + "damage";
+    info.health -= (uint16_t) damage;
+    return QStringLiteral("Dealt %1 damage").arg(damage);
 }
 
 QString droid::getDialogue() {

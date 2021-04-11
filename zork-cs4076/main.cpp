@@ -1,14 +1,13 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <iostream>
-QMap<QString, QString> Room::descrMap = QMap<QString, QString>();
-
+#line 0
 
 int main(int argc, char *argv[])
 {
-
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
+    std::cout << QStringLiteral("Reached line %1 in main.cpp").arg(__LINE__).toStdString() << std::endl;
     return a.exec();
 }

@@ -1,6 +1,5 @@
 #ifndef DROID_H
 #define DROID_H
-
 #include "npc.h"
 #include <exception>
 
@@ -39,7 +38,7 @@ private:
                                                   "You shot right at the camera sensor. In a fountain of sparks the droid starts swinging his arms but falls down and then freezes. You inspect it and find a fine quality PCB. Will you take it?", "The carcass of the battle droid that tried to kill you is still here."};
     unsigned char curLine;
     struct stats {
-        uint16_t health              : 7;
+        uint16_t health              : 7; // 127 max
         uint16_t attackDamage        : 6; // 63 max
         uint16_t                     : 0;
         uint16_t droppedWeaponDamage : 4; // 15 max

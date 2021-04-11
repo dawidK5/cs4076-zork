@@ -1,5 +1,4 @@
-#ifndef WEAPON_H
-#define WEAPON_H
+#pragma once
 
 #include "Item.h"
 
@@ -11,5 +10,3 @@ public:
 private:
     int damage;
 };
-
-#endif // WEAPON_H

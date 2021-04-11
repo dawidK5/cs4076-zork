@@ -20,6 +20,7 @@ SOURCES += \
     journals.cpp \
     main.cpp \
     mainwindow.cpp \
+    nodescriptionexcpt.cpp \
     npc.cpp \
     popout.cpp \
     weapon.cpp
@@ -33,6 +34,7 @@ HEADERS += \
     human.h \
     journals.h \
     mainwindow.h \
+    nodescriptionexcpt.h \
     npc.h \
     popout.h \
     weapon.h

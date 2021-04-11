@@ -183,11 +183,6 @@
     <property name="viewMode">
      <enum>QListView::ListMode</enum>
     </property>
-    <item>
-     <property name="text">
-      <string>Advanced PCB</string>
-     </property>
-    </item>
    </widget>
    <widget class="QGraphicsView" name="entityView">
     <property name="geometry">
