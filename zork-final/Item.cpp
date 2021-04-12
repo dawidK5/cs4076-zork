@@ -10,21 +10,7 @@ Item::Item(const Item& orig) {
     description = orig.getShortDescription();
     weaponCheck = orig.weaponCheck;
 }
-/*
-template <typename T>
-T Item::setWeaponCheck(T isWeapon) {
-    if(isWeapon) {
 
-        cout << "Item is a weapon\n";
-        weaponCheck = true;
-
-    } else {
-        cout << "Item is not a weapon\n";
-        weaponCheck = false;
-    }
-    return weaponCheck;
-}
-*/
 QString Item::getShortDescription() const
 {
     return description;

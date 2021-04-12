@@ -2,16 +2,16 @@
 #define NODESCRIPTIONEXCPT_H
 
 #include <exception>
-#include <QString>
+#include <string>
 namespace nde {
 
 
 class NoDescriptionExcpt : public std::exception
 {
 private:
-    QString err;
+    std::string err;
 public:
-    NoDescriptionExcpt(QString err);
+    NoDescriptionExcpt(std::string err);
     const char * what () const noexcept;
 };
 }

@@ -38,7 +38,7 @@
      <number>3</number>
     </property>
     <property name="intValue" stdset="0">
-     <number>30</number>
+     <number>10</number>
     </property>
    </widget>
    <widget class="QLabel" name="daysTillColText">

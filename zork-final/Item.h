@@ -19,7 +19,7 @@ public:
     template <typename T>
     bool setWeaponCheck(T isWeapon) { return weaponCheck = (bool) isWeapon;};
 
-    bool getWeaponCheck();
+    inline bool getWeaponCheck() { return weaponCheck;};
 };
 
 #endif // ITEM_H

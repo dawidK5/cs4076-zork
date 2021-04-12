@@ -1,3 +1,6 @@
+// The Dwindling Light, Level 1
+// Elliot Cleary 19264359 
+// Dawid Kocik 19233116
 #include "mainwindow.h"
 #include <QApplication>
 #include <iostream>

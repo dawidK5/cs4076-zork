@@ -53,6 +53,7 @@ void ZorkUL::resetGame() {
     }
     currentRoom = &rooms[30];
 
+
     rooms[34].addItem(new Item("Engine Part 2"));   // f3
     rooms[14].addItem(new Item("Engine Part 3"));   // c4
     facility1 = &rooms[0];
@@ -67,6 +68,7 @@ void ZorkUL::resetGame() {
     facility1->addNpc(new droid(new Item("Advanced PCB")));
     rooms[19].addNpc(new Human("Advanced PCB", new Item("Engine Part 1")));
     rooms[37].addItem(new Food("Nuts", 60));
+    rooms[5].addNpc(new droid(*facility1->getDroid()));
     weapon = new Weapon("blaster", 20);
     weapon->setWeaponCheck(1);
 }
@@ -298,5 +300,5 @@ QString ZorkUL::go(const QString& direction) {
 
 ZorkUL::~ZorkUL() {
     currentRoom = facility1 = e7 = nullptr;
-    delete [] &rooms;
+
 }

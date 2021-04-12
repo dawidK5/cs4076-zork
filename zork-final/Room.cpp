@@ -29,9 +29,9 @@ QString Room::longDescription() {
     if(firstVisit) {
         firstVisit = false;
         if(!descrMap.contains(roomName)) {
-            throw NoDescriptionExcpt(QStringLiteral("The %1 room decription missing: check places.txt").arg(roomName));
+            throw NoDescriptionExcpt(QStringLiteral("The %1 room decription missing: check places.txt").arg(roomName).toStdString());
         }
-        return "room = " + roomName + ".\n" + descrMap[roomName] +"\n." + displayItem() + exitString();
+        return "room = " + roomName + ".\n" + descrMap[roomName] +".\n" + displayItem() + exitString();
     }
     return "room = " + roomName + ".\n" + displayItem() + exitString();
 }
@@ -110,7 +110,6 @@ int Room::isItemInRoom(QString inString)
 }
 
 QMap<QString,QString>& Room::getTheMap() {
-    cout << &descrMap << endl;
     return descrMap;
 }
 
@@ -147,6 +146,6 @@ void Room::clear() {
     killDroid();
 }
 Room::~Room() {
-    itemsInRoom.clear();
+    // itemsInRoom.clear();
     delete nonpc;
 }

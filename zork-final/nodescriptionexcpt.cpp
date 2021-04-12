@@ -1,7 +1,7 @@
 #include "nodescriptionexcpt.h"
 using nde::NoDescriptionExcpt;
 
-NoDescriptionExcpt::NoDescriptionExcpt(QString err) : err(err) {};
+NoDescriptionExcpt::NoDescriptionExcpt(std::string error) : err(error) {};
 const char * NoDescriptionExcpt::what () const noexcept {
-    return err.toLatin1();
+    return err.c_str();
 }

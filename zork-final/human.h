@@ -14,6 +14,7 @@ public:
     bool tradesItem(const Item&);
     Item trade();
     QString getInItemName();
+    bool stillHasItem();
 
 private:
     Item* reward;

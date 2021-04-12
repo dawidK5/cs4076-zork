@@ -18,7 +18,6 @@ droid::~droid() {
 }
 
 void droid::makeDeepCp(const droid& orig) {
-    delete this->drop;
     info.health = orig.info.health;
     info.attackDamage = orig.info.attackDamage;
     info.droppedWeaponDamage = orig.info.droppedWeaponDamage;

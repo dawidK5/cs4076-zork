@@ -12,6 +12,7 @@ Dialog::Dialog(QWidget *parent, bool win) :
 
     if(win){
         QString winText =   "You Win! \n"
+                            "You Brought Jeff with you when you left. He told you what happened."
                             "What really was going on: \n"
                             "This planet was going to be used to hide and test a device developed by the Separatists. It was develped as a device that would be able to stop a ship and pull it out of hyperspace. "
                             "This, obviously, would need increadible amounts of power and pulling force. Generally, ships are made parts with plenty steel so the device was essentially a giant magnet."

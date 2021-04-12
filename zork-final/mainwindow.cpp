@@ -12,7 +12,7 @@ using std::endl;
 using droidfrnd::droid, nde::NoDescriptionExcpt;
 
 int countMoves = 0;
-int dayValue = 30;
+int dayValue = 10;
 int wining = 0;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -282,13 +282,12 @@ void MainWindow::on_viewMapBt_clicked()
 }
 void MainWindow::checkForNpcs() {
     Room& cRoom = *game->getCurrentRoom();
-    cout << &cRoom << " " <<  game->getCurrentRoom();
     if(cRoom.hasNpc()) {
         try {
             print(cRoom.getNpc()->getDialogue());
             if(!cRoom.hasDroid()) {  // not null, non droid, must be human
-                ui->tradeBt->setDisabled(true);
-                ui->tradeBt->show();
+                // ui->tradeBt->setDisabled(true);
+                // ui->tradeBt->show();
             } else {    // droid
                 disableCompass();
 
@@ -296,6 +295,8 @@ void MainWindow::checkForNpcs() {
                 if(!cRoom.getDroid()->isDead()) {
                     ui->attackBt->show();
                     ui->searchBt->hide();
+                } else {
+                    ui->attackBt->hide();
                 }
 
 
@@ -316,11 +317,17 @@ void MainWindow::on_attackBt_clicked()
 {
     droid* enemy = (game->getCurrentRoom()->getDroid());
     print( *enemy + (* (game->getWeapon())));
-    ui->attackBt->setDisabled(true);
+
     if(enemy->isDead()) {
-        ui->attackBt->setDisabled(true);
+
         ui->attackBt->hide();
-        ui->searchBt->show();
+        if(game->getCurrentRoom()->getRoomName() == "Facility") {
+
+            ui->searchBt->show();
+
+        } else {
+            updateCompass();
+        }
         game->getCurrentRoom()->addItem(new Item( *getDropItem(*enemy)) );
 
         return;
@@ -347,7 +354,7 @@ void MainWindow::on_attackBt_clicked()
             ui->healthBar->setValue(hp-hit);
         }
     }
-    ui->attackBt->setDisabled(false);
+    // ui->attackBt->setDisabled(false);
 
 }
 
@@ -384,24 +391,35 @@ void MainWindow::on_tradeBt_clicked()
 
 void MainWindow::on_itemsList_itemClicked(QListWidgetItem *item)
 {
-    item->setSelected(true);
-    ui->tradeBt->setDisabled(false);
+    // item->setSelected(true);
+    if(game->getCurrentRoom()->hasNpc() && !game->getCurrentRoom()->hasDroid()) {
+        if(!static_cast<Human*>(game->getCurrentRoom()->getNpc())->stillHasItem()) {
+            ui->tradeBt->setDisabled(true);
+            ui->tradeBt->hide();
+        } else {
+            ui->tradeBt->setDisabled(false);
+            ui->tradeBt->show();
+        }
+    }
+
 }
 
 void MainWindow::resetGui() {
     countMoves = 0;
-    dayValue = 30;
+    dayValue = 10;
     wining = 0;
-    ui-> daysLeftLCD->display(30);
+    ui-> daysLeftLCD->display(10);
     ui->eatBt->hide();
     ui->healthBar->setValue(40);
     ui->itemsList->clear();
     ui->tradeBt->hide();
     ui->tradeBt->setDisabled(true);
     ui->attackBt->hide();
+    // ui->attackBt->setDisabled(false);
     ui->JournalsBt->hide();
     ui->searchBt->hide();
     updateCompass();
+    ui->torchOffBt->setChecked(true);
     pinMap->setPos(337, 323);
     ui->minimap->centerOn(pinMap);
     ui->storyTextBox->clear();
